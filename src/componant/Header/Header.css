@@ -1,0 +1,46 @@
+.header .image img{
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+.image{
+    min-width: 250px;
+    display: inline-block;
+}
+.header{
+    background-color: black;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    position: sticky;
+    top:0;
+}
+nav {
+   margin-left: auto;
+}
+nav .menu{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    padding:15px 0;
+}
+nav .menu a{
+    color:white;
+    text-decoration: none;
+    padding:10px 15px;
+    border-radius: 5px;
+}
+nav a:hover{
+    background-color: gray;
+}
+.header input{
+    margin: 0 20px;
+    min-width: 350px;
+    height: 25px;
+    padding: 5px 10px;
+    font-size: 18px;
+    outline: none;
+    border-radius: 3px;
+}
+
