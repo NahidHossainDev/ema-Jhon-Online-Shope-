@@ -7,7 +7,7 @@ const Cart = (props) => {
     // const prodPrice = cart.reduce((total, prd) => total + prd.price, 0 );
     let prodPrice = 0;
     cart.map((p) => {
-       prodPrice = p.price + prodPrice;
+      return prodPrice = p.price + prodPrice;
     });
 
     let shipping = 0;

@@ -1,0 +1,45 @@
+.product-section {
+  width: 70%;
+  margin-left: 10%;
+  margin-right: 2%;
+  font-weight: 400;
+  border-right: 1px solid lightgray;
+}
+.product h4 {
+  color: blue;
+}
+.product {
+  display: flex;
+  border-bottom: 1px solid lightgray;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+img {
+  padding: 10px;
+  margin-right: 10px;
+}
+.btn {
+  height: 30px;
+  width: 150px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background-color: orange;
+}
+.btn:hover {
+  background-color: rgb(248, 189, 79);
+  cursor: pointer;
+}
+.btnAndFeatures {
+  display: flex;
+}
+
+.features {
+  margin-left: 40px;
+}
+.features ul {
+  list-style: none;
+  color: gray;
+  margin: 0px;
+  padding: 0;
+  font-size: 16px;
+}
