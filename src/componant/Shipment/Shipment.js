@@ -1,51 +1,56 @@
-import React, { useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import './Shipment.css'
-import { ContextElement } from '../../App';
+import React, { useContext, useState } from "react";
+import "./Shipment.css";
+import { ContextElement } from "../../App";
+import { getDatabaseCart, processOrder } from "../../utilities/databaseManager";
+import AddressForm from "./AddressForm";
+import PaymentMethod from "../PaymentMethod/PaymentMethod";
+import SplitCheckOutForm from "../PaymentMethod/SplitCheckoutForm";
 const Shipment = () => {
-   const { register, handleSubmit, watch, errors } = useForm();
-    const onSubmit = data => console.log(data);
-    
-    const [loginInfo] = useContext(ContextElement)
+ 
+  const [loginInfo] = useContext(ContextElement);
 
-  console.log(watch("example")); // watch input value by passing the name of it
+  const [formInfo, setFormInfo] = useState(null);
+
+  const onSubmit = (data) => {
+    setFormInfo(data)
+    };
+
+    const handleForSendDataToDataBase = (paymentId) => {
+      const saveCart = getDatabaseCart();
+      const orderDetail = {
+        ...loginInfo,
+        product: saveCart,
+        shipmentInfo: formInfo,
+        paymentId,
+        orderTime: new Date(),
+      };
+    fetch("https://radiant-anchorage-37251.herokuapp.com/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderDetail),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          processOrder();
+          alert("your order placed successfully");
+        }
+      });
+  };
 
   return (
-    <form className="ship-form" onSubmit={handleSubmit(onSubmit)}>
-      <input
-        name="name"
-        defaultValue={loginInfo.name}
-        ref={register}
-        placeholder="Full Name"
-      />
-      {errors.name && <span className="error">This field is required</span>}
-
-      <input
-        name="email"
-        defaultValue={loginInfo.email}
-        ref={register({ required: true })}
-        placeholder="Email"
-      />
-      {errors.email && <span className="error">This field is required</span>}
-
-      <input
-        name="address"
-        ref={register({ required: true })}
-        placeholder="Address"
-      />
-      {errors.address && <span className="error">This field is required</span>}
-
-      <input
-        name="exampleRequired"
-        ref={register({ required: true })}
-        placeholder="Phone Number"
-      />
-      {errors.exampleRequired && (
-        <span className="error">This field is required</span>
+    <div>
+      {formInfo ? (
+        <PaymentMethod handle={handleForSendDataToDataBase} />
+      ) : (
+        <AddressForm
+          onSubmit={onSubmit}
+          style={{ display: "inline-block" }}
+        ></AddressForm>
       )}
-
-      <input type="submit" />
-    </form>
+    </div>
   );
 };
 

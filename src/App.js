@@ -19,13 +19,12 @@ import { createContext } from 'react';
 import PrivateRoute from './componant/PrivateRoute/PrivateRoute';
 
 export const ContextElement = createContext();
-
 function App() {
 
 const [userLogIn, setUserLogin] = useState({});
-
+  const [search, setSearch] = useState("");
   return (
-    <ContextElement.Provider value={[userLogIn, setUserLogin]}>
+    <ContextElement.Provider value={[userLogIn, setUserLogin, search, setSearch]}>
       <Router>
         <Header></Header>
         <Switch>

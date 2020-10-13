@@ -24,6 +24,7 @@ nav .menu{
     flex-wrap: wrap;
     align-content: center;
     padding:15px 0;
+    margin-right: 30px;
 }
 nav .menu a{
     color:white;

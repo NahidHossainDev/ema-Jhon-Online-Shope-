@@ -29,13 +29,7 @@ const Product = (props) => {
                     </div>
                     <div className="features">
                         <h3>Features</h3>
-                        <ul>
-                            {features.map((f) => (
-                                <li>
-                                    {f.description}: {f.value}
-                                </li>
-                            ))}
-                        </ul>
+                      
                     </div>
                 </div>
             </div>

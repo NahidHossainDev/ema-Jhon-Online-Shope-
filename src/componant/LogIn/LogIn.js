@@ -4,11 +4,11 @@ import { ContextElement } from "../../App";
 import { useHistory, useLocation } from "react-router-dom";
 import { initializeLoginFramework,handleSignOut, handleGoogleSignIn, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "./logInManager";
 
-
-initializeLoginFramework();
-
 function LogIn() {
+
+ 
 const [userLogIn, setUserLogIn] = useContext(ContextElement);
+  
   const history = useHistory();
   const location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
@@ -43,7 +43,22 @@ const [userLogIn, setUserLogIn] = useContext(ContextElement);
       });
     }
     e.preventDefault();
+  };  
+  const GoogleSignIn = () => {
+    handleGoogleSignIn().then((res) => {
+      setUser(res);
+      setUserLogIn(res);
+      history.replace(from);
+    });
   };
+
+  const signOut = () => {
+    handleSignOut().then((res) => {
+      setUser(res);
+      setUserLogIn(res);
+    });
+  };
+
   let filedValidation = true;
   const handleChange = (event) => {
     if (event.target.name === "email") {
@@ -61,22 +76,6 @@ const [userLogIn, setUserLogIn] = useContext(ContextElement);
     }
   };
 
-  const GoogleSignIn = () => {
-    handleGoogleSignIn().then((res) => {
-      setUser(res);
-      setUserLogIn(res);
-      history.replace(from);
-    });
-  };
-
-  const signOut = () => {
-    handleSignOut()
-      .then(res => {
-        setUser(res);
-        setUserLogIn(res);
-    })
-
-  }
   return (
     <div>
       {user.isLogin ? (
@@ -86,9 +85,9 @@ const [userLogIn, setUserLogIn] = useContext(ContextElement);
       )}
       {user.isLogin && (
         <div>
-          <p>
+          <span>
             Welcome, <h3 style={{ display: "inline-block" }}>{user.name}</h3>
-          </p>
+          </span>
           <p>Email: {user.email}</p>
           <img
             style={{ width: "200px", height: "200px", borderRadius: "50%" }}

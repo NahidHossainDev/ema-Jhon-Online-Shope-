@@ -3,9 +3,8 @@ import "firebase/auth";
 import "firebase/firestore";
 import firebaseConfig from "./firebase.config";
 
-export const initializeLoginFramework = () => {
-    firebase.initializeApp(firebaseConfig)
-}
+
+  firebase.initializeApp(firebaseConfig)
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -20,11 +19,20 @@ export const handleGoogleSignIn = () => {
         photo: photoURL,
         success: true,
       };
+     userVerifyToken();
      return isSignIn;
-      // console.log(displayName, photoURL, email)
+      
     })
     .catch((error) => console.log(error, error.message));
 };
+
+const userVerifyToken = () => {
+  firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+  sessionStorage.setItem("token", idToken);
+  }).catch(function(error) {
+  // Handle error
+  });
+}
 
 export const handleSignOut = () => {
   console.log("Sign Out is clicked");

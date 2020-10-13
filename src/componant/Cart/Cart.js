@@ -8,8 +8,7 @@ const Cart = (props) => {
     let prodPrice = 0;
     cart.map((p) => {
         // const quantity = parseInt(p.quantity);
-        console.log(p);
-        return prodPrice = prodPrice + (p.price * p.quantity) ;
+        return prodPrice = prodPrice + (p.price * p.quantity||1) ;
     });
 
     let shipping = 0;
@@ -34,13 +33,13 @@ const Cart = (props) => {
         const numm = num.toFixed(2);
         return Number(numm);
     }
-    const itemOnderd = cart.reduce((sum,ite)  => sum + ite.quantity,0);
+    const itemOrdered = cart.reduce((sum,ite)  => sum + ite.quantity||1,0);
     
     return (
         <div className="card">
             <div>
                 <h3>Order Summery</h3>
-                <p>Item Ordered: {itemOnderd}</p>
+                <p>Item Ordered: {cart.length}</p>
                 <div className="price">
                     <p>Products Price: {formattingNum(prodPrice)} </p>
                     <p>Shipping & Handling: {formattingNum(shipping)} </p>
